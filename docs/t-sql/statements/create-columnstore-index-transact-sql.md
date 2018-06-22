@@ -1,7 +1,7 @@
 ---
 title: "CREATE COLUMNSTORE INDEX (Transact-SQL) | Microsoft Docs"
 ms.custom: ""
-ms.date: "08/10/2017"
+ms.date: "06/22/2018"
 ms.prod: "sql-non-specified"
 ms.prod_service: "database-engine, sql-database, sql-data-warehouse, pdw"
 ms.service: ""
@@ -206,8 +206,8 @@ MAXDOP = *max_degree_of_parallelism*
 >  Parallel index operations are not available in every edition of [!INCLUDE[msC](../../includes/msconame-md.md)][!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)]. For a list of features that are supported by the editions of [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)], see [Editions and Supported Features for SQL Server 2016](../../sql-server/editions-and-supported-features-for-sql-server-2016.md).  
   
 ONLINE = [ON | OFF]   
-   Applies to: [!INCLUDE[ssSQLv14_md](../../includes/sssqlv14-md.md)], in nonclustered columnstore indexes only.
-   ON specifies that the nonclustered columnstore index remains online and available while the new copy of the index is being built.
+   Applies to: [!INCLUDE[ssSQLv14_md](../../includes/sssqlv14-md.md)], in nonclustered columnstore indexes only, and Azure SQL Database both clustered (preview) and nonclusted indexes.
+   ON specifies that the columnstore index remains online and available while the new copy of the index is being built.
 
    OFF specifies that the index is not available for use while the new copy is being built. As this is a nonclustered index only, the base table remains available, only the nonclustered columnstore index is not used to satisfy queries until the new index is complete. 
 
