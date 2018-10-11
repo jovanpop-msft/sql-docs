@@ -94,14 +94,26 @@ BULK INSERT
  **'** *data_file* **'**  
  Is the full path of the data file that contains data to import into the specified table or view. BULK INSERT can import data from a disk (including network, floppy disk, hard disk, and so on).   
  
- *data_file* must specify a valid path from the server on which [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] is running. If *data_file* is a remote file, specify the Universal Naming Convention (UNC) name. A UNC name has the form \\\\*Systemname*\\*ShareName*\\*Path*\\*FileName*. For example, `\\SystemX\DiskZ\Sales\update.txt`.   
+ *data_file* must specify a valid path from the server on which [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] is running. If *data_file* is a remote file, specify the Universal Naming Convention (UNC) name. A UNC name has the form \\\\*Systemname*\\*ShareName*\\*Path*\\*FileName*. For example:   
+ 
+```sql
+BULK INSERT Sales.Orders
+FROM '\\SystemX\DiskZ\Sales\update.dat';
+ ```
+ 
 **Applies to:** [!INCLUDE[ssSQLv14_md](../../includes/sssqlv14-md.md)] CTP 1.1.   
-Beginning with [!INCLUDE[ssSQLv14_md](../../includes/sssqlv14-md.md)] CTP1.1, the data_file can be in Azure blob storage.
+Beginning with [!INCLUDE[ssSQLv14_md](../../includes/sssqlv14-md.md)] CTP1.1, the data_file can be in Azure blob storage. In that case, you need to specify `DATA_SOURCE` argument.
 
 **'** *data_source_name* **'**   
 **Applies to:** [!INCLUDE[ssSQLv14_md](../../includes/sssqlv14-md.md)] CTP 1.1.   
 Is a named external data source pointing to the Azure Blob storage location of the file that will be imported. The external data source must be created using the `TYPE = BLOB_STORAGE` option added in [!INCLUDE[ssSQLv14_md](../../includes/sssqlv14-md.md)] CTP 1.1. For more information, see [CREATE EXTERNAL DATA SOURCE](../../t-sql/statements/create-external-data-source-transact-sql.md).    
-  
+ 
+```sql
+BULK INSERT Sales.Orders
+FROM 'orders.dat'
+WITH ( DATA_SOURCE = 'MyExternalBlobStorageDataSource' );
+ ```
+ 
  BATCHSIZE **=***batch_size*  
  Specifies the number of rows in a batch. Each batch is copied to the server as one transaction. If this fails, [!INCLUDE[ssNoVersion](../../includes/ssnoversion-md.md)] commits or rolls back the transaction for every batch. By default, all data in the specified data file is one batch. For information about performance considerations, see "Remarks," later in this topic.  
   
